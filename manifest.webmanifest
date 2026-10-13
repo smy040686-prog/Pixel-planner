@@ -1,0 +1,19 @@
+{
+  "id": "./",
+  "name": "Pixel Planner Glass — برنامه‌ریز من",
+  "short_name": "Pixel Planner",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#101629",
+  "theme_color": "#101629",
+  "lang": "fa",
+  "dir": "rtl",
+  "description": "برنامه‌ریز روزانه، هفتگی و ماهانه با چک‌لیست و گزارش پیشرفت",
+  "icons": [
+    {"src": "./icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "./icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "./icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}

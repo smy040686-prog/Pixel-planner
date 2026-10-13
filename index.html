@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101629"><link rel="manifest" href="./manifest.webmanifest"><title>Pixel Planner — برنامه‌ریز من</title>
+<style>
+:root{--bg:#101629;--ink:#f7f8ff;--muted:#b7c0d8;--line:#ffffff28;--mint:#9cf6d1;--lav:#d6c3ff;--gold:#ffe6a6;--red:#ff858f}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--ink);font-family:Tahoma,sans-serif;background:radial-gradient(ellipse at 15% 5%,#6250a34a,transparent 35%),radial-gradient(ellipse at 90% 25%,#269aa340,transparent 32%),var(--bg);background-attachment:fixed}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.13;background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:18px 18px}
+main{position:relative;max-width:720px;margin:auto;padding:14px 12px 90px}
+.glass{border:1px solid var(--line);background:linear-gradient(145deg,#ffffff17,#ffffff07);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 12px 32px #0003,inset 0 1px #ffffff20;border-radius:22px}
+header{text-align:center;padding:20px 14px;margin-bottom:13px}.pixel{display:inline-block;padding:6px 10px;border:1px solid #9cf6d1a8;border-radius:7px;color:var(--mint);font-size:10px;letter-spacing:1px;background:#9cf6d112}h1{font-size:25px;margin:12px 0 7px}.sub{font-size:12px;color:var(--muted);line-height:2}
+.days{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-bottom:13px}.day{font:inherit;font-size:12px;padding:11px 2px;border:1px solid var(--line);border-radius:12px;background:#ffffff0c;color:var(--ink);cursor:pointer}.day.active{background:var(--mint);color:#11182a;border-color:var(--mint);font-weight:bold}
+.panel{padding:14px 11px}.head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}h2{font-size:19px;margin:0}.small{font-size:11px;color:var(--muted)}.badge{font-size:10px;border:1px solid #9cf6d15c;color:var(--mint);border-radius:30px;padding:6px 9px}
+.item{margin:7px 0;border:1px solid #ffffff20;border-radius:14px;background:#0a0f211c;overflow:hidden}.item.rest{background:#ffe6a60d;border-color:#ffe6a638}
+.task{width:100%;display:grid;grid-template-columns:100px 1fr 20px;gap:7px;align-items:center;text-align:right;border:0;background:transparent;color:var(--ink);font:inherit;padding:12px 8px;cursor:pointer}.time{direction:ltr;text-align:right;white-space:nowrap;color:var(--gold);font-size:10px}.activity{font-size:13px;line-height:1.7}.arrow{color:var(--muted)}.options{display:none;padding:0 10px 11px;border-top:1px solid #ffffff18}.item.open .options{display:block}.opt-title{font-size:11px;color:var(--muted);padding:10px 2px 4px}.option{display:flex;align-items:center;gap:9px;padding:8px;margin:5px 0;border:1px solid #ffffff18;border-radius:9px;background:#ffffff08;font-size:12px;line-height:1.7;cursor:pointer}.option input{appearance:none;width:17px;height:17px;flex:0 0 17px;margin:0;border:1.5px solid #c4c9df;border-radius:4px;background:#ffffff0a;display:grid;place-items:center}.option input:checked{background:var(--mint);border-color:var(--mint)}.option input:checked:after{content:"✓";font-size:13px;font-weight:bold;color:#101629}.option:has(input:checked){border-color:#9cf6d174;background:#9cf6d110}
+.quote{padding:14px;margin-top:13px;border-color:#d6c3ff66;background:linear-gradient(135deg,#d6c3ff18,#ffffff07)}.q-label{font-size:10px;color:var(--lav);margin-bottom:7px}.q-text{font-size:13px;font-weight:bold;line-height:2}
+.float{position:fixed;z-index:5;bottom:calc(15px + env(safe-area-inset-bottom));left:15px;border:1px solid #ffffff50;border-radius:17px;padding:12px 15px;background:linear-gradient(135deg,#9cf6d1,#b7e9ff);color:#101629;font:inherit;font-size:13px;font-weight:bold;box-shadow:0 8px 25px #0006;cursor:pointer}
+.drawer{display:none;position:fixed;z-index:10;inset:0;background:#050914b8;backdrop-filter:blur(8px);padding:14px;align-items:flex-end;justify-content:center}.drawer.show{display:flex}.sheet{width:min(100%,650px);max-height:88vh;overflow:auto;padding:18px 14px 22px;border-radius:24px 24px 14px 14px;background:linear-gradient(145deg,#26324cfa,#171e33fa);border:1px solid #ffffff35;box-shadow:0 20px 70px #0008}.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.close{background:#ffffff13;border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:8px 12px;font:inherit}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:15px 0}.tab{padding:10px 3px;background:#ffffff0b;color:var(--ink);border:1px solid var(--line);border-radius:10px;font:inherit;font-size:12px}.tab.active{background:var(--lav);color:#19152b;border-color:var(--lav);font-weight:bold}.progress-card{padding:14px;border:1px solid var(--line);border-radius:15px;background:#ffffff08;margin:9px 0}.progress-row{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:13px}.pct{font-size:22px;color:var(--mint);font-weight:bold;direction:ltr}.bar{height:9px;background:#ffffff14;border-radius:99px;overflow:hidden;margin-top:10px}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#9cf6d1,#a8dfff);border-radius:99px;transition:width .2s}.substats{font-size:11px;color:var(--muted);margin-top:7px;line-height:1.8}.miss{color:var(--red)}.done{color:var(--mint)}.note{font-size:11px;color:var(--muted);line-height:1.9;margin-top:12px}footer{text-align:center;color:var(--muted);font-size:11px;padding:17px 5px;line-height:2}
+@media(max-width:380px){main{padding:10px 8px 85px}.task{grid-template-columns:92px 1fr 16px;padding:11px 6px}.activity{font-size:12px}.time{font-size:9px}h1{font-size:23px}}
+
+.donut-wrap{display:flex;align-items:center;gap:16px;margin-top:14px}
+.donut{width:118px;height:118px;flex:0 0 118px;position:relative}
+.donut svg{width:100%;height:100%;transform:rotate(-90deg)}
+.donut-track{fill:none;stroke:#ffffff18;stroke-width:10}
+.donut-value{fill:none;stroke:url(#donutGrad);stroke-width:10;stroke-linecap:round;transition:stroke-dasharray .35s}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-center strong{font-size:22px;color:var(--mint);direction:ltr}
+.donut-center span{font-size:10px;color:var(--muted);margin-top:3px}
+.donut-legend{flex:1;min-width:0;font-size:12px;line-height:2}
+.legend-row{display:flex;justify-content:space-between;gap:8px}
+.legend-row .miss{font-weight:bold}
+.weekday-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:14px}
+.weekday-chip{border:1px solid #ffffff18;background:#ffffff08;border-radius:10px;padding:9px}
+.weekday-chip .progress-row{font-size:11px}
+.weekday-chip .bar{height:6px;margin-top:7px}
+@media(max-width:360px){.donut-wrap{gap:10px}.donut{width:100px;height:100px;flex-basis:100px}.weekday-list{grid-template-columns:1fr}}
+</style></head>
+<body><main>
+<header class="glass"><div class="pixel">PIXEL PLANNER · GLASS EDITION</div><h1>برنامه هفتگی من</h1><div class="sub">شنبه تا جمعه · ۱۶:۰۰ تا ۲۲:۳۰<br>شام و استراحت: ۲۰:۰۰ تا ۲۱:۰۰</div></header>
+<nav class="days" id="days"></nav>
+<section class="glass panel"><div class="head"><h2 id="dayTitle">شنبه</h2><span class="badge">برنامه امروز</span></div><div class="small">روی هر فعالیت بزن تا گزینه‌ها و چک‌لیستش باز شود.</div><div id="activities"></div></section>
+<section class="glass quote"><div class="q-label">✦ جمله انگیزشی امروز</div><div class="q-text" id="quoteText"></div></section>
+<footer>پیشرفت با تکرار قدم‌های کوچک ساخته می‌شود.</footer></main>
+<button class="float" id="openStats">▦ پیشرفت من</button>
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="گزارش پیشرفت"><section class="sheet">
+<div class="sheet-head"><div><h2>داشبورد پیشرفت</h2><div class="small">محاسبه بر اساس تیک‌های ثبت‌شده</div></div><button class="close" id="closeStats">بستن ×</button></div>
+<div class="tabs"><button class="tab active" data-period="day">روزانه</button><button class="tab" data-period="week">هفتگی</button><button class="tab" data-period="month">ماهانه</button></div>
+<div id="statsContent"></div><div class="note">سه گزارش روزانه، هفتگی و ماهانه؛ نمودار دایره‌ای میزان تکمیل را نشان می‌دهد و در گزارش هفتگی، هر هفت روز جداگانه دیده می‌شود. موارد باقی‌مانده قرمز هستند. اطلاعات در حافظه همین مرورگر ذخیره می‌شود.</div>
+</section></div>
+<script>
+const week=[
+{day:"شنبه",quote:"شروع کردن، نصف راه است؛ امروز فقط شروع کن.",items:[["۱۶:۰۰–۱۷:۳۰","تمرین طراحی و نقاشی"],["۱۷:۳۰–۱۸:۰۰","استراحت کوتاه"],["۱۸:۰۰–۱۹:۰۰","مطالعه کتاب"],["۱۹:۰۰–۲۰:۰۰","مطالعه زبان انگلیسی"],["۲۰:۰۰–۲۱:۰۰","شام و استراحت"],["۲۱:۰۰–۲۲:۳۰","تماشای فیلم و سریال"]]},
+{day:"یکشنبه",quote:"هر بار که تمرین می‌کنی، کمی بهتر از دیروز می‌شوی.",items:[["۱۶:۰۰–۱۷:۰۰","مطالعه کتاب"],["۱۷:۰۰–۱۸:۰۰","آموزش موسیقی"],["۱۸:۰۰–۱۸:۳۰","استراحت کوتاه"],["۱۸:۳۰–۲۰:۰۰","تمرین طراحی و نقاشی"],["۲۰:۰۰–۲۱:۰۰","شام و استراحت"],["۲۱:۰۰–۲۲:۳۰","تماشای فیلم و سریال"]]},
+{day:"دوشنبه",quote:"لازم نیست همه‌چیز را یک‌باره یاد بگیری؛ فقط یک قدم دیگر.",items:[["۱۶:۰۰–۱۷:۰۰","مطالعه"],["۱۷:۰۰–۱۸:۳۰","تمرین طراحی و نقاشی"],["۱۸:۳۰–۱۹:۰۰","استراحت کوتاه"],["۱۹:۰۰–۲۰:۰۰","مطالعه کتاب"],["۲۰:۰۰–۲۱:۰۰","شام و استراحت"],["۲۱:۰۰–۲۱:۳۰","مطالعه زبان انگلیسی"],["۲۱:۳۰–۲۲:۳۰","تماشای فیلم و سریال"]]},
+{day:"سه‌شنبه",quote:"تمرکز روی یک کار کوچک، بهتر از نگرانی درباره همه‌چیز است.",items:[["۱۶:۰۰–۱۷:۰۰","مطالعه کتاب"],["۱۷:۰۰–۱۸:۰۰","مطالعه زبان انگلیسی"],["۱۸:۰۰–۱۹:۳۰","تمرین طراحی و نقاشی"],["۱۹:۳۰–۲۰:۰۰","استراحت کوتاه"],["۲۰:۰۰–۲۱:۰۰","شام و استراحت"],["۲۱:۰۰–۲۲:۳۰","تماشای فیلم و سریال"]]},
+{day:"چهارشنبه",quote:"استمرار، حتی با قدم‌های کوچک، نتیجه می‌سازد.",items:[["۱۶:۰۰–۱۷:۳۰","تمرین طراحی و نقاشی"],["۱۷:۳۰–۱۸:۳۰","مطالعه کتاب"],["۱۸:۳۰–۱۹:۰۰","استراحت کوتاه"],["۱۹:۰۰–۲۰:۰۰","مطالعه"],["۲۰:۰۰–۲۱:۰۰","شام و استراحت"],["۲۱:۰۰–۲۲:۳۰","مطالعه زبان انگلیسی"]]},
+{day:"پنجشنبه",quote:"برای علاقه‌هایت وقت بگذار؛ آن‌ها بخشی از رشد تو هستند.",items:[["۱۶:۰۰–۱۷:۰۰","مطالعه کتاب"],["۱۷:۰۰–۱۸:۰۰","آموزش موسیقی"],["۱۸:۰۰–۱۹:۳۰","تمرین طراحی و نقاشی"],["۱۹:۳۰–۲۰:۰۰","استراحت کوتاه"],["۲۰:۰۰–۲۱:۰۰","شام و استراحت"],["۲۱:۰۰–۲۲:۳۰","تماشای فیلم و سریال"]]},
+{day:"جمعه",quote:"به راهی که آمده‌ای نگاه کن؛ حتی پیشرفت‌های کوچک ارزشمندند.",items:[["۱۶:۰۰–۱۷:۰۰","تماشای فیلم و سریال"],["۱۷:۰۰–۱۸:۰۰","مطالعه آزاد یا مرور هفته"],["۱۸:۰۰–۱۹:۳۰","تمرین طراحی و نقاشی"],["۱۹:۳۰–۲۰:۰۰","استراحت کوتاه"],["۲۰:۰۰–۲۱:۰۰","شام و استراحت"],["۲۱:۰۰–۲۲:۳۰","مطالعه کتاب"]]}];
+const choices={
+"تمرین طراحی و نقاشی":["تمرین فیگور و آناتومی","تمرین طراحی آزاد","تمرین در دفتر طراحی","تمرین طراحی دیجیتال","کانسپت آرت و طراحی شخصیت"],
+"مطالعه کتاب":["مطالعه رمان","مطالعه مقاله","مطالعه کتاب با موضوع آزاد","یادداشت‌برداری از نکات مهم"],
+"مطالعه":["مطالعه آزاد","مطالعه مقاله","مرور یادداشت‌ها","خلاصه‌نویسی"],
+"مطالعه زبان انگلیسی":["یادگیری واژه‌های جدید","خواندن متن یا کتاب انگلیسی","تمرین Listening","تمرین Writing","تمرین Speaking و تلفظ","مرور گرامر"],
+"آموزش موسیقی":["تمرین تکنیک پایه","یادگیری درس جدید","تمرین ریتم","تمرین قطعه موسیقی","مرور تمرین قبلی"],
+"تماشای فیلم و سریال":["تماشای فیلم","تماشای یک قسمت سریال","تماشا با زیرنویس انگلیسی","یادداشت داستان و شخصیت‌پردازی"],
+"مطالعه آزاد یا مرور هفته":["مرور کارهای انجام‌شده","مرتب‌کردن یادداشت‌ها","انتخاب هدف‌های هفته بعد","مطالعه موضوع دلخواه"],
+"استراحت کوتاه":["کمی راه رفتن و کشش","آب خوردن و دوری از صفحه","استراحت چشم‌ها"],
+"شام و استراحت":["شام خوردن","استراحت بدون صفحه‌نمایش","گفت‌وگو با خانواده"]
+};
+const $=id=>document.getElementById(id), days=$('days'), activities=$('activities');
+let selectedDay=0,period='day';
+function getChecks(){try{return JSON.parse(localStorage.getItem('pp_checks_v2')||'{}')}catch(e){return {}}}
+function setCheck(key,val){const d=getChecks();d[key]=val;localStorage.setItem('pp_checks_v2',JSON.stringify(d))}
+function dateKey(offset=0){let d=new Date();d.setDate(d.getDate()+offset);return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function mondayOffset(){let n=new Date().getDay();return n===0?-6:1-n}
+function keyFor(dayIndex,time,activity,choiceIndex,date){return `${date}|${dayIndex}|${time}|${activity}|${choiceIndex}`}
+function renderDay(index){selectedDay=index;[...days.children].forEach((b,i)=>b.classList.toggle('active',i===index));const d=week[index];$('dayTitle').textContent=d.day;$('quoteText').textContent=d.quote;activities.replaceChildren();
+const today=new Date();let target=new Date(today);let delta=(index+6-today.getDay())%7;target.setDate(today.getDate()+delta);const date=`${target.getFullYear()}-${String(target.getMonth()+1).padStart(2,'0')}-${String(target.getDate()).padStart(2,'0')}`;
+d.items.forEach(([time,activity])=>{let item=document.createElement('article');item.className='item'+(activity.includes('شام و استراحت')?' rest':'');let btn=document.createElement('button');btn.className='task';btn.type='button';let tm=document.createElement('span');tm.className='time';tm.textContent=time;let ac=document.createElement('span');ac.className='activity';ac.textContent=activity;let ar=document.createElement('span');ar.className='arrow';ar.textContent='⌄';btn.append(tm,ac,ar);let opts=document.createElement('div');opts.className='options';let label=document.createElement('div');label.className='opt-title';label.textContent='موارد انجام‌شده را تیک بزن:';opts.append(label);(choices[activity]||['شروع فعالیت','تمرین اصلی','مرور و یادداشت‌برداری','جمع‌بندی']).forEach((txt,i)=>{let l=document.createElement('label');l.className='option';let cb=document.createElement('input');cb.type='checkbox';cb.checked=!!getChecks()[keyFor(index,time,activity,i,date)];cb.addEventListener('change',()=>{setCheck(keyFor(index,time,activity,i,date),cb.checked);renderStats()});let s=document.createElement('span');s.textContent=txt;l.append(cb,s);opts.append(l)});btn.onclick=()=>item.classList.toggle('open');item.append(btn,opts);activities.append(item)})}
+week.forEach((d,i)=>{let b=document.createElement('button');b.className='day';b.textContent=d.day;b.onclick=()=>renderDay(i);days.append(b)});
+
+function weekdayIndex(date){return (new Date(date+'T12:00:00').getDay()+1)%7}
+function getEntriesForDate(date){
+ const di=weekdayIndex(date), d=week[di], entries=[];
+ d.items.forEach(([time,act])=>(choices[act]||['شروع فعالیت','تمرین اصلی','مرور و یادداشت‌برداری','جمع‌بندی']).forEach((label,ci)=>entries.push({key:keyFor(di,time,act,ci,date),label,day:d.day,dayIndex:di,act})));
+ return entries;
+}
+function periodDates(){
+ let out=[];
+ if(period==='day')return [dateKey()];
+ let start=new Date();start.setHours(12,0,0,0);
+ if(period==='week'){
+   const back=(start.getDay()+1)%7; start.setDate(start.getDate()-back);
+   for(let i=0;i<7;i++){let d=new Date(start);d.setDate(start.getDate()+i);out.push(fmt(d))}
+ }else{
+   start.setDate(1);let month=start.getMonth();
+   while(start.getMonth()===month){out.push(fmt(start));start.setDate(start.getDate()+1)}
+ }
+ return out;
+}
+function fmt(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function donutMarkup(pct,done,total){
+ const circumference=2*Math.PI*48, dash=(circumference*pct/100).toFixed(2);
+ return `<div class="donut-wrap"><div class="donut"><svg viewBox="0 0 120 120" aria-label="نمودار دایره‌ای پیشرفت"><defs><linearGradient id="donutGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#9cf6d1"/><stop offset="100%" stop-color="#b7e9ff"/></linearGradient></defs><circle class="donut-track" cx="60" cy="60" r="48"/><circle class="donut-value" cx="60" cy="60" r="48" stroke-dasharray="${dash} ${circumference}"/></svg><div class="donut-center"><strong>${pct}%</strong><span>تکمیل‌شده</span></div></div><div class="donut-legend"><div class="legend-row"><span>✓ انجام‌شده</span><strong class="done">${done}</strong></div><div class="legend-row"><span>○ باقی‌مانده</span><strong class="miss">${total-done}</strong></div><div class="substats">${done} از ${total} مورد انجام شده</div></div></div>`;
+}
+function renderStats(){
+ const host=$('statsContent');host.replaceChildren();
+ const dates=periodDates(), checks=getChecks(), all=[];
+ dates.forEach(date=>all.push(...getEntriesForDate(date)));
+ const completed=all.filter(x=>checks[x.key]).length,total=all.length,pct=total?Math.round(completed/total*100):0;
+ const titles={day:'پیشرفت روزانه',week:'پیشرفت هفتگی',month:'پیشرفت ماهانه'};
+ let summary=document.createElement('div');summary.className='progress-card';
+ summary.innerHTML=`<div class="progress-row"><strong>${titles[period]}</strong><span class="small">${period==='day'?week[weekdayIndex(dateKey())].day:period==='week'?'شنبه تا جمعه':'کل ماه جاری'}</span></div>${donutMarkup(pct,completed,total)}`;
+ host.append(summary);
+ if(period==='week'){
+   const list=document.createElement('div');list.className='weekday-list';
+   week.forEach((d,di)=>{
+     const entries=all.filter(x=>x.dayIndex===di),done=entries.filter(x=>checks[x.key]).length,tot=entries.length,p=tot?Math.round(done/tot*100):0;
+     const card=document.createElement('div');card.className='weekday-chip';
+     card.innerHTML=`<div class="progress-row"><strong>${d.day}</strong><span class="${p===100?'done':'miss'}">${p}%</span></div><div class="bar"><span style="width:${p}%;background:${p===100?'linear-gradient(90deg,#9cf6d1,#b7e9ff)':'linear-gradient(90deg,#ff858f,#ffb6c9)'}"></span></div>`;
+     list.append(card);
+   });
+   host.append(list);
+ }
+}
+$('openStats').onclick=()=>{$('drawer').classList.add('show');renderStats()};$('closeStats').onclick=()=>$('drawer').classList.remove('show');$('drawer').addEventListener('click',e=>{if(e.target===$('drawer'))$('drawer').classList.remove('show')});
+document.querySelectorAll('[data-period]').forEach(b=>b.onclick=()=>{period=b.dataset.period;document.querySelectorAll('[data-period]').forEach(x=>x.classList.toggle('active',x===b));renderStats()});
+renderDay(0);
+</script></body></html>
